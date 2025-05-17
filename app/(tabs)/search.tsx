@@ -1,9 +1,10 @@
+import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 
-export default function AboutScreen() {
+export default function SearchScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>About screen</Text>
+      <Text style={styles.text}>Search Screen</Text>
     </View>
   );
 }

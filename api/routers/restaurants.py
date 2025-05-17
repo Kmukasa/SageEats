@@ -3,11 +3,12 @@ from sqlalchemy.orm import Session
 from geoalchemy2.functions import ST_DWithin
 from geoalchemy2.shape import from_shape
 from shapely.geometry import Point
-
-from typing import List
+from typing import List, Optional
 from api.database import SessionLocal
 from api.models import models
 from api.schemas import schemas
+
+import uuid
 
 router = APIRouter(prefix="/restaurants", tags=["Restaurants"])
 
@@ -56,3 +57,24 @@ def get_nearby_restaurants(
     )
 
     return query
+
+@router.get("/{restaurant_id}/menu-items", response_model=List[schemas.MenuItemOut])
+def get_menu_items_for_restaurant(
+    restaurant_id: uuid.UUID,
+    exclude_allergen_ids: Optional[List[uuid.UUID]] = Query(default=None),
+    db: Session = Depends(get_db)
+):
+    # Get restaurant and menu
+    restaurant = db.query(models.Restaurant).filter(models.Restaurant.id == restaurant_id).first()
+    if not restaurant or not restaurant.menu:
+        raise HTTPException(status_code=404, detail="Restaurant or menu not found")
+
+    query = db.query(models.MenuItem).filter(models.MenuItem.menu_id == restaurant.menu.id)
+
+    if exclude_allergen_ids:
+        # Exclude items that have any of the allergens
+        query = query.filter(
+            ~models.MenuItem.allergens.any(models.Allergen.id.in_(exclude_allergen_ids))
+        )
+
+    return query.all()
