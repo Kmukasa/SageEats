@@ -13,3 +13,6 @@ devices.json
 settings.json
 expo-env.d.ts
 .expo/devices.json
+
+**/.env
+**/.env.*
