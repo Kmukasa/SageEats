@@ -1,7 +1,6 @@
 import React from "react";
-import { Tabs } from "expo-router";
+import { Stack } from "expo-router";
 import { Text } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 
@@ -12,16 +11,16 @@ export default function TabLayout() {
   return (
     <>
       <StatusBar style="dark" backgroundColor="#B0DA9A" />
-      <Tabs
+      <Stack
         screenOptions={{
-          tabBarActiveTintColor: "#000",
-          tabBarInactiveTintColor: "#000",
+          headerTitleAlign: "center",
           headerTitle: (props) => (
             <Text
               style={{
                 fontFamily: "Limelight",
-                fontSize: 45,
+                fontSize: 40,
                 color: "#000",
+                textAlign: "center",
               }}
             >
               SAFE PLATES
@@ -29,54 +28,17 @@ export default function TabLayout() {
           ),
           headerStyle: {
             backgroundColor: "#B0DA9A",
-            height: 110,
           },
           headerShadowVisible: true,
-          tabBarStyle: {
-            backgroundColor: "#B0DA9A",
-          },
         }}
       >
-        <Tabs.Screen
+        <Stack.Screen
           name="index"
           options={{
             title: "Home",
-            tabBarIcon: ({ color, focused }) => (
-              <Ionicons
-                name={focused ? "home-sharp" : "home-outline"}
-                color={color}
-                size={24}
-              />
-            ),
           }}
         />
-        <Tabs.Screen
-          name="search"
-          options={{
-            title: "Search",
-            tabBarIcon: ({ color, focused }) => (
-              <Ionicons
-                name={focused ? "search-sharp" : "search-outline"}
-                color={color}
-                size={24}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: "Profile",
-            tabBarIcon: ({ color, focused }) => (
-              <Ionicons
-                name={focused ? "person-sharp" : "person-outline"}
-                color={color}
-                size={24}
-              />
-            ),
-          }}
-        />
-      </Tabs>
+      </Stack>
     </>
   );
 }
