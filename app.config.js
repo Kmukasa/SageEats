@@ -38,16 +38,22 @@ export default {
       [
         "expo-splash-screen",
         {
+          backgroundColor: "#232323",
           image: "./assets/images/splash-icon.png",
+          dark: {
+            image: "./assets/images/splash-icon.png",
+            backgroundColor: "#000000",
+          },
           imageWidth: 200,
-          resizeMode: "contain",
-          backgroundColor: "#ffffff",
         },
       ],
       "expo-font",
     ],
     experiments: {
       typedRoutes: true,
+    },
+    cli: {
+      appVersionSource: "remote",
     },
     extra: {
       googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
