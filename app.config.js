@@ -1,7 +1,5 @@
 import "dotenv/config";
 
-const splashImagePath = "./assets/images/splash-icon.png";
-
 export default {
   expo: {
     name: "SageEats",
@@ -41,12 +39,11 @@ export default {
         "expo-splash-screen",
         {
           backgroundColor: "#232323",
-          image: splashImagePath,
+          image: "./assets/images/splash-icon.png",
           dark: {
-            image: splashImagePath,
+            image: "./assets/images/splash-icon-dark.png",
             backgroundColor: "#000000",
           },
-          resizeMode: "cover",
         },
       ],
       "expo-font",
